@@ -1,16 +1,16 @@
 import json
 from random import shuffle, randint
 import logging
-from time import sleep
-from typing import Any
+from time import sleep, time
 import requests
-from urllib import request
-from config import Config
-from language import Language
-from userreader import UserReader
-from uagetter import UAGetter
 
-logging.basicConfig(format='[%(levelname)s] %(asctime)s: %(message)s', level=logging.DEBUG)
+from Config import Config
+from utils.Language import Language
+from utils.UserReader import UserReader
+from utils.UAGetter import UAGetter
+from utils.AESCipher import AESCipher
+
+logging.basicConfig(format='[%(levelname)s] %(asctime)s: %(message)s', level=logging.INFO)
 
 class Clockin:
     _user_json = None
@@ -31,7 +31,7 @@ class Clockin:
             except requests.ConnectionError:
                 logging.error(Language().get_message('error_connection'))
                 return False
-            except request.HTTPError:
+            except requests.HTTPError:
                 logging.error(Language().get_message('error_http'))
                 return False
             except TimeoutError:
@@ -55,14 +55,15 @@ class Clockin:
             logging.error(Language().get_message('request_method_not_support'))
             return False
     
-    def generate_data(self) -> None:
+    def _generate_data(self) -> None:
         pass
     pass
 
 class ShixiClockin(Clockin):    
-    __name_longitude = None
-    __name_latitude = None
-    __name_temperature = None
+    _name_longitude = None
+    _name_latitude = None
+    _name_temperature = None
+    _name_verify = None
     
     def __init__(self, user_json) -> None:
         super().__init__(user_json)
@@ -72,15 +73,21 @@ class ShixiClockin(Clockin):
         self._clockin_header = Config().get_config_json('clockinapi', 'shixi_qian_header')
         self._clockin_header['User-Agent'] = UAGetter().get_random_ua()
         
-        self.__name_temperature = Config().get_config_str('clockinapi', 'shixi_qian_temperature_field_name')
-        self.__name_longitude = Config().get_config_str('clockinapi', 'shixi_qian_longitude_field_name')
-        self.__name_latitude = Config().get_config_str('clockinapi', 'shixi_qian_latitude_field_name')
+        self._name_temperature = Config().get_config_str('clockinapi', 'shixi_qian_temperature_field_name')
+        self._name_longitude = Config().get_config_str('clockinapi', 'shixi_qian_longitude_field_name')
+        self._name_latitude = Config().get_config_str('clockinapi', 'shixi_qian_latitude_field_name')
+        self._name_verify = Config().get_config_str('clockinapi', 'shixi_qian_verify_field_name')
         
-    def generate_data(self) -> None:
-        self._clockin_data[self.__name_temperature] = '36.' + str(randint(1, 9))
+    def _generate_data(self) -> None:
+        self._clockin_data[self._name_temperature] = '36.' + str(randint(1, 9))
         location = self.get_position_from_address_by_baidumap(self._user_json['address'])
-        self._clockin_data[self.__name_longitude] = location['lng']
-        self._clockin_data[self.__name_latitude] = location['lat']
+        self._clockin_data[self._name_longitude] = location['lng']
+        self._clockin_data[self._name_latitude] = location['lat']
+        self._encrypt_verify()
+        
+    def _encrypt_verify(self) -> None:
+        cipher = AESCipher(Config().get_config_str('shixiencrypt', 'shixi_qian_AES_KEY'), Config().get_config_str('shixiencrypt', 'shixi_qian_AES_IV'))
+        self._clockin_data[self._name_verify] = cipher.encrypt(str(int(time())) + ',' + self._user_json['phone'])
         
     def get_position_from_address_by_baidumap(self, address) -> dict:
         try:
@@ -90,7 +97,7 @@ class ShixiClockin(Clockin):
             return {'lng': '', 'lat': ''}
     
     def clockin(self) -> bool:
-        self.generate_data()
+        self._generate_data()
         if super().clockin():
             return True
         else:
@@ -98,12 +105,12 @@ class ShixiClockin(Clockin):
 
 
 class ClockinClockin(Clockin):
-    __name_id = None
-    __name_temperature = None
-    __name_province = None
-    __name_city = None
-    __name_district = None
-    __name_address = None
+    _name_id = None
+    _name_temperature = None
+    _name_province = None
+    _name_city = None
+    _name_district = None
+    _name_address = None
     
     def __init__(self, user_json) -> None:
         super().__init__(user_json)
@@ -113,23 +120,23 @@ class ClockinClockin(Clockin):
         self._clockin_header = Config().get_config_json('clockinapi', 'clockin_header')
         self._clockin_header['User-Agent'] = UAGetter().get_random_ua()
         
-        self.__name_id = Config().get_config_str('clockinapi', 'clockin_id_field_name')
-        self.__name_temperature = Config().get_config_str('clockinapi', 'clockin_temperature_field_name')
-        self.__name_province = Config().get_config_str('clockinapi', 'clockin_province_field_name')
-        self.__name_city = Config().get_config_str('clockinapi', 'clockin_city_field_name')
-        self.__name_district = Config().get_config_str('clockinapi', 'clockin_district_field_name')
-        self.__name_address = Config().get_config_str('clockinapi', 'clockin_address_field_name')
+        self._name_id = Config().get_config_str('clockinapi', 'clockin_id_field_name')
+        self._name_temperature = Config().get_config_str('clockinapi', 'clockin_temperature_field_name')
+        self._name_province = Config().get_config_str('clockinapi', 'clockin_province_field_name')
+        self._name_city = Config().get_config_str('clockinapi', 'clockin_city_field_name')
+        self._name_district = Config().get_config_str('clockinapi', 'clockin_district_field_name')
+        self._name_address = Config().get_config_str('clockinapi', 'clockin_address_field_name')
         
-    def generate_data(self) -> None:
-        self._clockin_data[self.__name_temperature] = '36.' + str(randint(1, 9))
-        self._clockin_data[self.__name_id] = self._user_json['id']
-        self._clockin_data[self.__name_province] = self._user_json['province']
-        self._clockin_data[self.__name_city] = self._user_json['city']
-        self._clockin_data[self.__name_district] = self._user_json['district']
-        self._clockin_data[self.__name_address] = self._user_json['address']
+    def _generate_data(self) -> None:
+        self._clockin_data[self._name_temperature] = '36.' + str(randint(1, 9))
+        self._clockin_data[self._name_id] = self._user_json['id']
+        self._clockin_data[self._name_province] = self._user_json['province']
+        self._clockin_data[self._name_city] = self._user_json['city']
+        self._clockin_data[self._name_district] = self._user_json['district']
+        self._clockin_data[self._name_address] = self._user_json['address']
         
     def clockin(self) -> bool:
-        self.generate_data()
+        self._generate_data()
         if super().clockin():
             return True
         else:
@@ -140,9 +147,11 @@ if __name__ == '__main__':
     logging.info(Language().get_message('name') + '-' + Config().get_config_str('app', 'name'))
     logging.info(Language().get_message('author') + '-' + Config().get_config_str('app', 'author'))
     logging.info(Language().get_message('version') + '-' + Config().get_config_str('app', 'version'))
+    
     user_list = UserReader().get_user_list()
     if len(user_list) > 1:
         user_list = shuffle(user_list)
+    
     for user in user_list:
         ShixiClockin(user).clockin()
         ClockinClockin(user).clockin()

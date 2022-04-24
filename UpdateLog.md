@@ -1,5 +1,10 @@
 # UpdateLog
 
-# 2022.04.23-Version 0.0.1
+## 0.0.2
+
+- add aes verify encryption
+- fix bugs
+
+## 0.0.1
 
 - create auto clockin

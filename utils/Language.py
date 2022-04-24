@@ -1,6 +1,6 @@
 from os import getcwd
 import yaml
-from config import Config
+from Config import Config
 
 class Language:
     __lang = None
@@ -22,4 +22,4 @@ class Language:
 
 if __name__ == '__main__': # test
     language = Language()
-    print(language.get_message('test'))
+    print(language.get_message('name'))

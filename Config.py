@@ -4,25 +4,25 @@ from os import getcwd
 from typing import Any
 
 class Config:
-    __config = ConfigParser()
+    _config = ConfigParser()
     
     def __init__(self) -> None:
-        self.__config.read(getcwd() + '/config.conf')
+        self._config.read(getcwd() + '/config.conf')
     
     def get_config_str(self, section, field) -> str:
-        return self.__config[section][field]
+        return self._config[section][field]
     
     def get_config_list(self, section, field) -> list:
-        return list(self.__config[section][field].strip('][').split(', '))
+        return list(self._config[section][field].strip('][').split(', '))
     
     def get_config_json(self, section, field) -> dict:
-        return json.loads(self.__config[section][field])
+        return json.loads(self._config[section][field])
     
     def get_language(self) -> str:
-        return self.__config['app']['language']
+        return self._config['app']['language']
     
     def get_version(self) -> str:
-        return self.__config['app']['version']
+        return self._config['app']['version']
 
 
 if __name__ == '__main__': # test
