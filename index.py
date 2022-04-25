@@ -11,5 +11,8 @@ def handler(event, context):
     
     for user in user_list:
         ShixiClockin(user).clockin()
+        logging.info(Language().get_message('split_line'))
         ClockinClockin(user).clockin()
+        logging.info(Language().get_message('split_line'))
         sleep(randint(1, 3))
+    return 'ok'
