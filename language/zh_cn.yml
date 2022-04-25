@@ -1,4 +1,4 @@
-version: '0.0.2'
+version: '0.0.3'
 message:
   name: '校企通自动打卡脚本'
   author: '作者'
@@ -20,3 +20,6 @@ message:
   error_timeout: '网络连接超时，请检查您的网络链接'
   error_unknown: '未知网络错误，请检查您的网络链接'
   request_method_not_support: '不支持的请求方式'
+  email_title: '校企通自动打卡日志'
+  email_send_success: '邮件发送成功'
+  email_send_fail: '邮件发送失败'

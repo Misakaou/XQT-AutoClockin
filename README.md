@@ -11,19 +11,25 @@
 
 - `git clone https://github.com/BloveDawn/XQT-AutoClockin.git`
 
-### 1. 安装依赖
+### 2. 安装依赖
 
 - `cd XQT-AutoClockin`
 - `pip install -r requirements.txt`
 
-### 2. 添加需要自动打卡的用户
+### 3. 添加需要自动打卡的用户
 
 1. 重命名`idlist_sample.csv`为`idlist.csv`
 2. 按照`idlist.csv`格式添加用户信息，除`remark`字段为非必填外，其余字段必填，否则将导致自动打卡失败
 
-### 3. 运行自动化打卡脚本
+### 4. 运行自动化打卡脚本
 
 - `python3 RunClockin.py`
+
+> ### 其他功能
+>
+> #### 1. 开启邮件发送服务(可选)(不推荐，可能会被邮件服务器屏蔽)
+>
+> - 修改`config.conf`文件中的`email`节中的内容，`enabled = true`为开启服务
 
 ---
 

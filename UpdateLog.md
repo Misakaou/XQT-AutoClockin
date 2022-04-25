@@ -1,5 +1,10 @@
 # UpdateLog
 
+## 0.0.3
+
+- split log to utils
+- add email sender
+
 ## 0.0.2
 
 - add parase response function
