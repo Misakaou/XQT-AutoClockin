@@ -23,3 +23,4 @@ message:
   email_title: '校企通自动打卡日志'
   email_send_success: '邮件发送成功'
   email_send_fail: '邮件发送失败'
+  email_send_cancel: '当前无错误日志，取消发送邮件通知'

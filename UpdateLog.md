@@ -2,6 +2,11 @@
 
 ## 0.0.3
 
+- split log -> error log & warning log & info log
+- email only send warning & error log now
+
+## 0.0.3
+
 - split log to utils
 - add email sender
 
