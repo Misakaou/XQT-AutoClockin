@@ -23,19 +23,21 @@ class Clockin:
         self._user_json = user_json
         logging.info(Language().get_message('clockin_start') + '-' + self._user_json['remarks'] + '-' + self._user_json['id'])
         
-    def clockin(self) -> str:
+    def clockin(self) -> bool:
         self._generate_data()
         if self._clockin_method == 'POST':
             logging.info(Language().get_message('clockin_data') + '-' + str(self._clockin_data))
             try:
                 response = requests.post(self._clockin_url, data=self._clockin_data, headers=self._clockin_header)
                 if response.status_code == 200:
-                    logging.info(Language().get_message('clockin_success') + '-' + self._user_json['remarks'] + '-' + self._user_json['id'])
-                    logging.info(Language().get_message('clockin_response') + '-' + response.text)
+                    logging.info(Language().get_message('clockin_server_response_success') + '-' + self._user_json['remarks'] + '-' + self._user_json['id'])
+                    logging.info(Language().get_message('clockin_server_response') + '-' + response.text)
+                    logging.info(self._parase_response(response.text))
                 else:
-                    logging.warning(Language().get_message('clockin_fail') + '-' + self._user_json['remarks'] + '-' + self._user_json['id'])
-                    logging.warning(Language().get_message('clockin_response') + '-' + response.text)
-                return response.text
+                    logging.warning(Language().get_message('clockin_server_response_fail') + '-' + self._user_json['remarks'] + '-' + self._user_json['id'])
+                    logging.warning(Language().get_message('clockin_server_response') + '-' + response.text)
+                    logging.warning(self._parase_response(response.text))
+                return True
             except requests.ConnectionError:
                 logging.error(Language().get_message('error_connection'))
             except requests.HTTPError:
@@ -44,15 +46,18 @@ class Clockin:
                 logging.error(Language().get_message('error_timeout'))
             except:
                 logging.error(Language().get_message('error_unknown'))
-            return None
+            return False
         elif self._clockin_method == 'GET':
             logging.error(Language().get_message('request_method_not_support'))
-            return None
+            return False
         else:
             logging.error(Language().get_message('request_method_not_support'))
-            return None
+            return False
     
     def _generate_data(self) -> None:
+        pass
+    
+    def _parase_response(self, response_text) -> str:
         pass
     pass
 
@@ -93,6 +98,20 @@ class ShixiClockin(Clockin):
             logging.error(Language().get_message('error_baidumap') + '-' + address)
             return {'lng': '', 'lat': ''}
     
+    def _parase_response(self, response_text) -> str:
+        if not response_text:
+            return None
+        try:
+            response_json = json.loads(response_text)
+            if len(response_json) == 0:
+                return Language().get_message('clockin_server_response_already_clockin') + '-' + str(response_json)
+            elif response_json['code'] == 1:
+                return Language().get_message('clockin_success')
+            else:
+                return Language().get_message('clockin_server_response_unknown') + '-' + str(response_json)
+        except Exception:
+            return Language().get_message('clockin_server_response_unknown') + '-' + str(response_text)   
+    
     def clockin(self) -> bool:
         response_text = super().clockin()
         if response_text:
@@ -105,7 +124,7 @@ class ShixiClockin(Clockin):
             return False
 
 
-class ClockinClockin(Clockin):
+class ClockinOrdinary(Clockin):
     _name_id = None
     _name_temperature = None
     _name_province = None
@@ -135,26 +154,24 @@ class ClockinClockin(Clockin):
         self._clockin_data[self._name_city] = self._user_json['city']
         self._clockin_data[self._name_district] = self._user_json['district']
         self._clockin_data[self._name_address] = self._user_json['address']
-        
-    def clockin(self) -> bool:
-        response_text = super().clockin()
-        if response_text:
-            try: 
-                response_json = json.loads(response_text)
-                if response_json[Config().get_config_str('clockinapi', 'clockin_server_response_code_name')] == Config().get_config_str('clockinapi', 'clockin_server_response_code_success'):
-                    return True
-                elif response_json[Config().get_config_str('clockinapi', 'clockin_server_response_code_name')] == Config().get_config_str('clockinapi', 'clockin_server_response_code_already_clockin'):
-                    logging.warning(Language().get_message('clockin_server_response_already_clockin') + '-' + str(response_json[Config().get_config_str('clockinapi', 'clockin_server_response_result_name')]))
-                    return False
-                else:
-                    logging.warning(Language().get_message('clockin_server_response_unknown') + '-' + str(response_json))
-                    return False
-            except Exception:
-                logging.warning(Language().get_message('clockin_server_response_unknown') + '-' + str(response_text))
-                return False
-        else:
-            return False
     
+    def _parase_response(self, response_text) -> str:
+        if not response_text:
+            return None
+        try: 
+            response_json = json.loads(response_text)
+            if response_json['code'] == '200':
+                return Language().get_message('clockin_success') + '-' + response_json['msg']
+            elif response_json['code'] == '400':
+                return Language().get_message('clockin_server_response_already_clockin') + '-' + str(response_json['msg'])
+            else:
+                return Language().get_message('clockin_server_response_unknown') + '-' + str(response_json)
+        except Exception:
+            return Language().get_message('clockin_server_response_unknown') + '-' + str(response_text)    
+    
+    def clockin(self) -> bool:
+        return super().clockin()
+
 
 if __name__ == '__main__':
     logging.info(Language().get_message('name') + '-' + Config().get_config_str('app', 'name'))
@@ -168,6 +185,6 @@ if __name__ == '__main__':
     for user in user_list:
         ShixiClockin(user).clockin()
         logging.info(Language().get_message('split_line'))
-        ClockinClockin(user).clockin()
+        ClockinOrdinary(user).clockin()
         logging.info(Language().get_message('split_line'))
         sleep(randint(1, 3))

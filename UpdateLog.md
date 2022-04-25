@@ -2,6 +2,10 @@
 
 ## 0.0.2
 
+- add parase response function
+
+## 0.0.2
+
 - add aliyun fc support
 - update readme
 
