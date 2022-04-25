@@ -2,6 +2,11 @@
 
 ## 0.0.2
 
+- add aliyun fc support
+- update readme
+
+## 0.0.2
+
 - add aes verify encryption
 - fix bugs
 
