@@ -7,8 +7,13 @@
 
 ## 一、本地运行
 
+### 1. 克隆本存储库到本地
+
+- `git clone https://github.com/BloveDawn/XQT-AutoClockin.git`
+
 ### 1. 安装依赖
 
+- `cd XQT-AutoClockin`
 - `pip install -r requirements.txt`
 
 ### 2. 添加需要自动打卡的用户
@@ -50,11 +55,13 @@
       8. 触发消息：随便填写
 6. 点击**创建**，完成函数创建
 
-#### 2) ALIYUNFC-修改用户信息
+#### 2) ALIYUNFC-上传代码&修改用户信息
 
-1. 进入刚刚创建的函数，等待函数代码加载完成，等待终端加载完成
-2. 重命名`idlist_sample.csv`为`idlist.csv`
-3. 按照`idlist.csv`格式添加用户信息，除`remark`字段为非必填外，其余字段必填，否则将导致自动打卡失败
+1. 进入刚刚创建的函数详情页面，等待函数代码加载完成，等待终端加载完成
+2. [点击下载本项目代码](https://github.com/BloveDawn/XQT-AutoClockin/archive/refs/heads/main.zip)到本地并解压缩
+3. 点击函数详情页面的**上传代码**，选择**上传文件夹**，选择**选择文件夹**，随后选择您解压好的代码文件，点击**上传**，选中**我想在上传完成后直接部署函数**，点击**保存并部署**
+4. 重命名`idlist_sample.csv`为`idlist.csv`
+5. 按照`idlist.csv`格式添加用户信息，除`remark`字段为非必填外，其余字段必填，否则将导致自动打卡失败
 
 #### 3) ALIYUNFC-安装依赖
 
