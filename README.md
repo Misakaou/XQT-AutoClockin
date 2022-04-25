@@ -23,7 +23,7 @@
 
 ### 3. 运行自动化打卡脚本
 
-- `python3 clockin.py`
+- `python3 RunClockin.py`
 
 ---
 

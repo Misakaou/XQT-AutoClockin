@@ -6,7 +6,6 @@ import requests
 
 from Config import Config
 from utils.Language import Language
-from utils.UserReader import UserReader
 from utils.UAGetter import UAGetter
 from utils.AESCipher import AESCipher
 
@@ -173,18 +172,11 @@ class ClockinOrdinary(Clockin):
         return super().clockin()
 
 
-if __name__ == '__main__':
-    logging.info(Language().get_message('name') + '-' + Config().get_config_str('app', 'name'))
-    logging.info(Language().get_message('author') + '-' + Config().get_config_str('app', 'author'))
-    logging.info(Language().get_message('version') + '-' + Config().get_config_str('app', 'version'))
-    
-    user_list = UserReader().get_user_list()
-    if len(user_list) > 1:
-        user_list = shuffle(user_list)
-    
+if __name__ == '__main__': # Test
+    user_list = [
+                    {'id': '140502200000000000', 'phone': '19999999999', 'province': '山西省', 'city': '太原市', 'district': '小店区', 'address': '山西省太原市小店区CD写字楼', 'remarks': '张三'},
+                    {'id': '140502200000000000', 'phone': '19999999999', 'province': '山西省', 'city': '太原市', 'district': '小店区', 'address': '山西省太原市小店区CD写字楼', 'remarks': '李四'},
+                ]
     for user in user_list:
         ShixiClockin(user).clockin()
-        logging.info(Language().get_message('split_line'))
         ClockinOrdinary(user).clockin()
-        logging.info(Language().get_message('split_line'))
-        sleep(randint(1, 3))
