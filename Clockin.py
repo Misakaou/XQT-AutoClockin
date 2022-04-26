@@ -60,7 +60,7 @@ class Clockin:
         pass
     pass
 
-class ShixiClockin(Clockin):
+class ClockinShixi(Clockin):
     _name_longitude = None
     _name_latitude = None
     _name_temperature = None
@@ -164,5 +164,5 @@ if __name__ == '__main__': # Test
                     {'id': '140502200000000000', 'phone': '19999999999', 'province': '山西省', 'city': '太原市', 'district': '小店区', 'address': '山西省太原市小店区CD写字楼', 'remarks': '李四'},
                 ]
     for user in user_list:
-        ShixiClockin(user).clockin()
+        ClockinShixi(user).clockin()
         ClockinOrdinary(user).clockin()

@@ -22,7 +22,7 @@ class RunClockin:
     
     def run_in_order(self) -> None:
         for user in self._user_list:
-            ShixiClockin(user).clockin()
+            ClockinShixi(user).clockin()
             logger.info(LANGUAGE.get_message('split_line'))
             ClockinOrdinary(user).clockin()
             logger.info(LANGUAGE.get_message('split_line'))
