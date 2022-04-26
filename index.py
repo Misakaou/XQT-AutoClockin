@@ -1,6 +1,5 @@
 from RunClockin import RunClockin
 
 def handler(event, context):
-    run_clockin = RunClockin()
-    run_clockin.run()
+    RunClockin().run_in_order()
     return 'ok'

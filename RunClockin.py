@@ -20,7 +20,7 @@ class RunClockin:
         # TODO
         pass
     
-    def run(self) -> None:
+    def run_in_order(self) -> None:
         for user in self._user_list:
             ShixiClockin(user).clockin()
             logger.info(LANGUAGE.get_message('split_line'))
@@ -44,5 +44,4 @@ class RunClockin:
             email.quit()
 
 if __name__ == '__main__':
-    run_clockin = RunClockin()
-    run_clockin.run()
+    RunClockin().run_in_order()
