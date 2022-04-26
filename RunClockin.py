@@ -1,5 +1,6 @@
 
 from time import sleep
+from random import uniform
 from Clockin import *
 from utils.Email import Email
 from utils.UserReader import UserReader
@@ -24,7 +25,7 @@ class RunClockin:
             logger.info(LANGUAGE.get_message('split_line'))
             ClockinOrdinary(user).clockin()
             logger.info(LANGUAGE.get_message('split_line'))
-            sleep(randint(1, 3))
+            sleep(round(uniform(0, CONFIG.get_config_float('clockinrunner', 'sleep_seconds_max')), 3))
         if CONFIG.get_config_bool('email', 'enabled'):
             email_text = ''
             email = Email(CONFIG.get_config_str('email', 'smtp_host'), CONFIG.get_config_str('email', 'smtp_port'), CONFIG.get_config_str('email', 'smtp_address'), CONFIG.get_config_str('email', 'smtp_password'))

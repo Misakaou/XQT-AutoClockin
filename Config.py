@@ -13,6 +13,9 @@ class Config:
         print(self._config[section][field] == 'true')
         return self._config[section][field] == 'true'
     
+    def get_config_float(self, section, field) -> float:
+        return float(self._config[section][field])
+    
     def get_config_int(self, section, field) -> int:
         return int(self._config[section][field])
     

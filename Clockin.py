@@ -1,5 +1,5 @@
 import json
-from random import shuffle, randint
+from random import randint
 from time import time
 import requests
 
