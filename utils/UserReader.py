@@ -1,5 +1,6 @@
 from csv import reader
 from os import getcwd
+from random import shuffle
 from Config import Config
 
 class UserReader:
@@ -13,11 +14,13 @@ class UserReader:
             csv_reader = reader(csv_file)
             self._id_header_list = next(csv_reader)
             self._id_list_dict_content = [dict(zip(self._id_header_list, row)) for row in csv_reader]
-        
-    def get_user_list(self) -> list:
+    
+    def get_user_dict_list(self) -> list:
+        if len(self._id_list_dict_content) > 1:
+            shuffle(self._id_list_dict_content)
         return self._id_list_dict_content
 
 
 if __name__=='__main__': # test
     idreader = UserReader()
-    print(idreader.get_user_list())
+    print(idreader.get_user_dict_list())

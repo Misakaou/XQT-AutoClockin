@@ -12,9 +12,7 @@ class RunClockin:
         logger.info(LANGUAGE.get_message('name') + '-' + CONFIG.get_config_str('app', 'name'))
         logger.info(LANGUAGE.get_message('author') + '-' + CONFIG.get_config_str('app', 'author'))
         logger.info(LANGUAGE.get_message('version') + '-' + CONFIG.get_config_str('app', 'version'))
-        self._user_list = UserReader().get_user_list()
-        if len(self._user_list) > 1:
-            self._user_list = shuffle(self._user_list)
+        self._user_list = UserReader().get_user_dict_list()
     
     def run_multi_thread(self) -> None:
         # TODO
