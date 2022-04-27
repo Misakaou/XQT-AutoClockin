@@ -16,7 +16,8 @@ class AESCipher(object):
         encrypt_bytes = AES.new(self.__key, AES.MODE_CBC, self.__iv).encrypt(self._pad_zero(raw))
         return str(base64.b64encode(encrypt_bytes), encoding='utf-8')
     
-    def decrypt(self, enc):
+    def decrypt(self, enc:str):
+        print(AES.new(self.__key, AES.MODE_CBC, self.__iv).decrypt(base64.decodebytes(enc.encode("utf8"))))
         decrypt_raw = AES.new(self.__key, AES.MODE_CBC, self.__iv).decrypt(base64.decodebytes(enc.encode("utf8"))).decode("utf8")
         return self._unpad_zero(decrypt_raw)
 
@@ -27,7 +28,6 @@ class AESCipher(object):
         return string.strip('\0')
     
 if __name__ == '__main__':
-    from Config import Config
-    asecipher = AESCipher(Config().get_config_str('shixiencrypt', 'shixi_qian_AES_KEY'), Config().get_config_str('shixiencrypt', 'shixi_qian_AES_IV'))
+    asecipher = AESCipher('woshiliangguofan', 'gnilaipojieshish')
     print(asecipher.encrypt('test raw data'))
-    print(asecipher.decrypt('Srkq5HIpqtB5nzgtSSZ9Xw=='))
+    print(asecipher.decrypt('3IQ4ApzWgbGNQ0jsGHNB+A=='))

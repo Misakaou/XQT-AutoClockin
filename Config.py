@@ -1,7 +1,6 @@
 from configparser import ConfigParser
 import json
 from os import getcwd
-from typing import Any
 
 class Config:
     _config = ConfigParser()
