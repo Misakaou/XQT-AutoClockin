@@ -53,7 +53,12 @@
       - Value: `true`或者`false`
    2. 添加自动打卡用户配置
       - Name: `CLOCKIN_USERS`
-      - Value: `id,phone,province,city,district,address,remarks\n140502200000000001,19899999999,山西省,太原市,小店区,山西省太原市小店区CD写字楼,张三\n140502200000000002,19899999999,山西省,临汾市,尧都区,山西省临汾市尧都区AB写字楼,李四`
+      - Value: 
+         ```text
+         id,phone,province,city,district,address,remarks
+         140502200000000001,19899999999,山西省,太原市,小店区,山西省太原市小店区CD写字楼,张三
+         140502200000000002,19899999999,山西省,临汾市,尧都区,山西省临汾市尧都区AB写字楼,李四
+         ```
       - 备注：将`idlist_sample.csv`中所有内容原封不动复制过来，再进行修改
    3. 添加邮件配置
       - Name: `EMAIL_ENABLED`
