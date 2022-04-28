@@ -53,7 +53,7 @@
       - Value: `true`或者`false`
    2. 添加自动打卡用户配置
       - Name: `CLOCKIN_USERS`
-      - Value: 
+      - Value:**注意：请勿随意增添空格，否则打卡那边查无此人、查无此地**
          ```text
          id,phone,province,city,district,address,remarks
          140502200000000001,19899999999,山西省,太原市,小店区,山西省太原市小店区CD写字楼,张三
