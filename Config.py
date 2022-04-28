@@ -9,7 +9,6 @@ class Config:
         self._config.read(getcwd() + '/config.conf')
         
     def get_config_bool(self, section, field) -> bool:
-        print(self._config[section][field] == 'true')
         return self._config[section][field] == 'true'
     
     def get_config_float(self, section, field) -> float:

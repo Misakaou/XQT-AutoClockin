@@ -1,5 +1,9 @@
 # UpdateLog
 
+## 0.0.4
+
+- add github action auto clockin
+
 ## 0.0.3
 
 - split log -> error log & warning log & info log

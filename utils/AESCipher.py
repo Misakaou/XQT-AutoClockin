@@ -17,7 +17,6 @@ class AESCipher(object):
         return str(base64.b64encode(encrypt_bytes), encoding='utf-8')
     
     def decrypt(self, enc:str):
-        print(AES.new(self.__key, AES.MODE_CBC, self.__iv).decrypt(base64.decodebytes(enc.encode("utf8"))))
         decrypt_raw = AES.new(self.__key, AES.MODE_CBC, self.__iv).decrypt(base64.decodebytes(enc.encode("utf8"))).decode("utf8")
         return self._unpad_zero(decrypt_raw)
 

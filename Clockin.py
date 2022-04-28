@@ -32,10 +32,10 @@ class Clockin:
                 if response.status_code == 200:
                     logger.info(LANGUAGE.get_message('clockin_server_response_success') + '-' + self._user_json['remarks'] + '-' + self._user_json['id'])
                     logger.info(LANGUAGE.get_message('clockin_server_response') + '-' + response.text)
+                    self._parase_response(response.text)
                 else:
                     logger.warning(LANGUAGE.get_message('clockin_server_response_fail') + '-' + self._user_json['remarks'] + '-' + self._user_json['id'])
                     logger.warning(LANGUAGE.get_message('clockin_server_response') + '-' + response.text)
-                self._parase_response(response.text)
                 return True
             except requests.ConnectionError:
                 logger.error(LANGUAGE.get_message('error_connection'))

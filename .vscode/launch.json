@@ -1,0 +1,44 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name":"Python: Current File",
+            "type":"python",
+            "request":"launch",
+            "program":"${file}",
+            "console":"integratedTerminal",
+            "justMyCode":true
+        },
+        {
+            "name":"Python: Run Local",
+            "type":"python",
+            "request":"launch",
+            "program":"RunClockin.py",
+            "console":"integratedTerminal",
+            "justMyCode":true
+        },
+        {
+            "name": "Python: Run Simulate Github Action",
+            "type": "python",
+            "request": "launch",
+            "program":"RunClockin.py",
+            "env": {
+                "GITHUB_ACTION_ENABLED": "true",
+                "CLOCKIN_USERS": "id,phone,province,city,district,address,remarks\n140502200000000001,19899999999,山西省,太原市,小店区,山西省太原市小店区CD写字楼,张三\n140502200000000002,19899999999,山西省,临汾市,尧都区,山西省临汾市尧都区AB写字楼,李四",
+                "EMAIL_ENABLED": "false",
+                "EMAIL_SMTP_HOST": "smtp.office365.com",
+                "EMAIL_SMTP_PORT": "587",
+                "EMAIL_SMTP_ADDRESS": "your_sender_email@example.org",
+                "EMAIL_SMTP_PASSWORD": "yourpassword",
+                "EMAIL_SMTP_RECEIVER_LIST": "[your_reciver_email@example.org,your_reciver_email2@example.org]",
+            },
+            "args": [
+                "run",
+            ],
+            "justMyCode":true
+        },
+    ]
+}
