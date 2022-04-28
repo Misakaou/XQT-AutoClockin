@@ -13,6 +13,8 @@ logger = logging.getLogger('CLOCKIN_LOG')
 if os.environ.get('ACTION_ENABLED', 'false') == 'true':
     logger.propagate = False
     logger.info('ACTION_ENABLED is true, log will not output to standard stream.')
+elif os.environ.get('ACTION_ENABLED', 'false') == 'debug':
+    logger.info('ACTION_ENABLED is debug, log will output to standard stream.')
 else:
     logger.info('ACTION_ENABLED is false, log will output to standard stream.')
 log_stream_info = io.StringIO()
