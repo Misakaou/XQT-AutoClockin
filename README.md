@@ -49,7 +49,7 @@
 1. 打开仓库设置页面，点击`Secrets`，点击`Actions`
 2. 点击`New repository secret`添加私有环境变量
    1. 添加配置是否启用GithubAction服务(必填)
-      - Name: `GITHUB_ACTION_ENABLED`
+      - Name: `ACTION_ENABLED`
       - Value: `true`或者`false`
    1. 添加自动打卡用户配置(必填)
       - Name: `CLOCKIN_USERS`

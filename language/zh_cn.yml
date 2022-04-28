@@ -27,4 +27,4 @@ message:
   email_send_fail: '邮件发送失败'
   email_send_cancel: '当前无错误日志，取消发送邮件通知'
   github_action_disabled: 'Github Action 模式已禁用'
-  github_action_enabled: 'Github Action 模式已启用'
+  ACTION_ENABLED: 'Github Action 模式已启用'

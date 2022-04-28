@@ -10,11 +10,11 @@ def Streamhandler(stream, level, format='[%(name)s-%(levelname)s] %(asctime)s: %
     return stream
     
 logger = logging.getLogger('CLOCKIN_LOG')
-if os.environ.get('GITHUB_ACTION_ENABLED', 'false') == 'true':
+if os.environ.get('ACTION_ENABLED', 'false') == 'true':
     logger.propagate = False
-    logger.info('GITHUB_ACTION_ENABLED is true, log will not output to standard stream.')
+    logger.info('ACTION_ENABLED is true, log will not output to standard stream.')
 else:
-    logger.info('GITHUB_ACTION_ENABLED is false, log will output to standard stream.')
+    logger.info('ACTION_ENABLED is false, log will output to standard stream.')
 log_stream_info = io.StringIO()
 log_stream_warning = io.StringIO()
 log_stream_error = io.StringIO()

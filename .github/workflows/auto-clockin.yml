@@ -19,11 +19,11 @@ jobs:
         run: |
           pip install -r requirements.txt
       - name: Execute py script 🐍
-        if: ${{ secrets.GITHUB_ACTION_ENABLED }}
+        if: ${{ secrets.ACTION_ENABLED }}
         run: |
           python RunClockin.py
         env:
-          GITHUB_ACTION_ENABLED: ${{ secrets.GITHUB_ACTION_ENABLED }}
+          ACTION_ENABLED: ${{ secrets.ACTION_ENABLED }}
           CLOCKIN_USERS: ${{ secrets.CLOCKIN_USERS }}
           EMAIL_ENABLED: ${{ secrets.EMAIL_ENABLED }}
           EMAIL_SMTP_HOST: ${{ secrets.EMAIL_SMTP_HOST }}

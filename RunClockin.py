@@ -14,8 +14,8 @@ class RunClockin:
         logger.info(LANGUAGE.get_message('name') + '-' + CONFIG.get_config_str('app', 'name'))
         logger.info(LANGUAGE.get_message('author') + '-' + CONFIG.get_config_str('app', 'author'))
         logger.info(LANGUAGE.get_message('version') + '-' + CONFIG.get_config_str('app', 'version'))
-        if os.environ.get('GITHUB_ACTION_ENABLED', 'false') == 'true':
-            logger.info(LANGUAGE.get_message('github_action_enabled'))
+        if os.environ.get('ACTION_ENABLED', 'false') == 'true':
+            logger.info(LANGUAGE.get_message('ACTION_ENABLED'))
             self._github_action = True
         else:
             logger.info(LANGUAGE.get_message('github_action_disabled'))
