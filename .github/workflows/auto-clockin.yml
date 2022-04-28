@@ -37,3 +37,8 @@ jobs:
           EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_PASSWORD }}
           EMAIL_SMTP_RECEIVER_LIST: ${{ secrets.EMAIL_SMTP_RECEIVER_LIST }}
           EMAIL_SEND_LOG_LEVEL: ${{ secrets.EMAIL_SEND_LOG_LEVEL }}
+      - name: Upload Debug log 💾
+        uses: actions/upload-artifact@v3
+        with:
+          name: debug.log
+          path: ./debug.log

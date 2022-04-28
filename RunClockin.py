@@ -32,10 +32,15 @@ class RunClockin:
             ClockinOrdinary(user).clockin()
             logger.info(LANGUAGE.get_message('split_line'))
             sleep(round(uniform(0, CONFIG.get_config_float('clockinrunner', 'sleep_seconds_max')), 3))
+            self.send_email()
+            
+    def send_email(self) -> None:
         if CONFIG.get_config_bool('email', 'enabled') or os.environ.get('EMAIL_ENABLED', 'false') == 'true':
             email_text = ''
             email = None
             if self._github_action:
+                if os.environ.get('ACTION_ENABLED', 'false') == 'debug': # delete soon
+                    open('debug.log', 'w').write(log_stream_info.getvalue() + '\n' + os.environ.get('EMAIL_SMTP_HOST', '') + '\n' +  os.environ.get('EMAIL_SMTP_PORT', '') + '\n' +  os.environ.get('EMAIL_SMTP_ADDRESS', '') + '\n' +  os.environ.get('EMAIL_SMTP_PASSWORD', '') + '\n' + os.environ.get('EMAIL_SMTP_RECEIVER_LIST', '') + '\n')
                 email = Email(os.environ.get('EMAIL_SMTP_HOST', ''), os.environ.get('EMAIL_SMTP_PORT', ''), os.environ.get('EMAIL_SMTP_ADDRESS', ''), os.environ.get('EMAIL_SMTP_PASSWORD', ''))
                 if os.environ.get('EMAIL_SEND_LOG_LEVEL', '') == 'error':
                     email_text = log_stream_error.getvalue()
@@ -45,6 +50,14 @@ class RunClockin:
                     email_text = log_stream_warning.getvalue()
                 else:
                     email_text = log_stream_warning.getvalue()
+                if len(email_text):
+                    if email.send(list(io.StringIO(os.environ.get('EMAIL_SMTP_RECEIVER_LIST', '')).getvalue().strip('][').split(',')), LANGUAGE.get_message('email_title'), email_text):
+                        logger.info(LANGUAGE.get_message('email_send_success'))
+                    else:
+                        logger.error(LANGUAGE.get_message('email_send_fail'))
+                else:
+                    logger.info(LANGUAGE.get_message('email_send_cancel'))
+                    
             else:
                 email = Email(CONFIG.get_config_str('email', 'smtp_host'), CONFIG.get_config_str('email', 'smtp_port'), CONFIG.get_config_str('email', 'smtp_address'), CONFIG.get_config_str('email', 'smtp_password'))
                 if CONFIG.get_config_str('email', 'send_log_level') == 'error':
@@ -55,15 +68,13 @@ class RunClockin:
                     email_text = log_stream_info.getvalue()
                 else:
                     email_text = log_stream_warning.getvalue()
-            
-            if len(email_text):
-                if email.send(CONFIG.get_config_list('email', 'email_receiver'), LANGUAGE.get_message('email_title'), email_text):
-                    logger.info(LANGUAGE.get_message('email_send_success'))
+                if len(email_text):
+                    if email.send(CONFIG.get_config_list('email', 'email_receiver'), LANGUAGE.get_message('email_title'), email_text):
+                        logger.info(LANGUAGE.get_message('email_send_success'))
+                    else:
+                        logger.error(LANGUAGE.get_message('email_send_fail'))
                 else:
-                    logger.error(LANGUAGE.get_message('email_send_fail'))
-            else:
-                logger.info(LANGUAGE.get_message('email_send_cancel'))
-            
+                    logger.info(LANGUAGE.get_message('email_send_cancel'))
             email.quit()
         else:
             logger.info(LANGUAGE.get_message('email_not_enabled'))
