@@ -18,8 +18,11 @@ jobs:
       - name: Install requirements 📦
         run: |
           pip install -r requirements.txt
+      - name: Assign variable 📝
+        id: secret
+        run: echo '::set-output name=secret::${{secrets.ACTION_ENABLED}}'
       - name: Execute py script 🐍
-        if: ${{ secrets.ACTION_ENABLED }}
+        if: steps.secret.outputs.secret
         run: |
           python RunClockin.py
         env:
