@@ -27,6 +27,7 @@ jobs:
         if: steps.secret.outputs.secret
         run: |
           python RunClockin.py
+        continue-on-error: true
         env:
           ACTION_ENABLED: ${{ secrets.ACTION_ENABLED }}
           CLOCKIN_USERS: ${{ secrets.CLOCKIN_USERS }}
@@ -39,6 +40,7 @@ jobs:
           EMAIL_SEND_LOG_LEVEL: ${{ secrets.EMAIL_SEND_LOG_LEVEL }}
       - name: Upload Debug log 💾
         uses: actions/upload-artifact@v3
+        continue-on-error: true
         with:
           name: debug.log
           path: ./debug.log
