@@ -2,7 +2,7 @@ name: Run Auto Clockin
 
 on:
   schedule:
-    - cron:  '0 9 * * *'
+    - cron:  '30 9 * * *'
     - timezone: 'Asia/Shanghai'
 
 jobs:
