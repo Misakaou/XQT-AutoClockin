@@ -34,6 +34,7 @@
                 "EMAIL_SMTP_ADDRESS": "your_sender_email@example.org",
                 "EMAIL_SMTP_PASSWORD": "yourpassword",
                 "EMAIL_SMTP_RECEIVER_LIST": "[your_reciver_email@example.org,your_reciver_email2@example.org]",
+                "EMAIL_SEND_LOG_LEVEL": "info",
             },
             "args": [
                 "run",

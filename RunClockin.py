@@ -37,10 +37,6 @@ class RunClockin:
             email = None
             if self._github_action:
                 email = Email(os.environ.get('EMAIL_SMTP_HOST', ''), os.environ.get('EMAIL_SMTP_PORT', ''), os.environ.get('EMAIL_SMTP_ADDRESS', ''), os.environ.get('EMAIL_SMTP_PASSWORD', ''))
-            else:
-                email = Email(CONFIG.get_config_str('email', 'smtp_host'), CONFIG.get_config_str('email', 'smtp_port'), CONFIG.get_config_str('email', 'smtp_address'), CONFIG.get_config_str('email', 'smtp_password'))
-            
-            if self._github_action:
                 if os.environ.get('EMAIL_SEND_LOG_LEVEL', '') == 'error':
                     email_text = log_stream_error.getvalue()
                 elif os.environ.get('EMAIL_SEND_LOG_LEVEL', '') == 'info':
@@ -50,6 +46,7 @@ class RunClockin:
                 else:
                     email_text = log_stream_warning.getvalue()
             else:
+                email = Email(CONFIG.get_config_str('email', 'smtp_host'), CONFIG.get_config_str('email', 'smtp_port'), CONFIG.get_config_str('email', 'smtp_address'), CONFIG.get_config_str('email', 'smtp_password'))
                 if CONFIG.get_config_str('email', 'send_log_level') == 'error':
                     email_text = log_stream_error.getvalue()
                 elif CONFIG.get_config_str('email', 'send_log_level') == 'warning':
