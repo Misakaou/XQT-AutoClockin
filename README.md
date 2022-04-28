@@ -48,28 +48,28 @@
 
 1. 打开仓库设置页面，点击`Secrets`，点击`Actions`
 2. 点击`New repository secret`添加私有环境变量
-  1. 添加配置是否启用GithubAction服务(必填)
-    - Name: `GITHUB_ACTION_ENABLED`
-    - Value: `true`或者`false`
-  2. 添加自动打卡用户配置(必填)
-    - Name: `CLOCKIN_USERS`
-    - Value: `id,phone,province,city,district,address,remarks\n140502200000000001,19899999999,山西省,太原市,小店区,山西省太原市小店区CD写字楼,张三\n140502200000000002,19899999999,山西省,临汾市,尧都区,山西省临汾市尧都区AB写字楼,李四`
-    - 备注：将`idlist_sample.csv`中所有内容原封不动复制过来，再进行修改
-  3. 添加邮件配置(可选)
-    - Name: `EMAIL_ENABLED`
-    - Value: `true`或者`false`
-    - Name: `EMAIL_SMTP_HOST`
-    - Value: `smtp.qq.com`
-    - Name: `EMAIL_SMTP_PORT`
-    - Value: `465`
-    - Name: `EMAIL_SMTP_ADDRESS`
-    - Value: `your_sender_email@example.org`
-    - Name: `EMAIL_SMTP_PASSWORD`
-    - Value: `your_sender_email_password`
-    - Name: `EMAIL_SMTP_RECEIVER_LIST`
-    - Value: `[your_reciver_email@example.org,your_reciver_email2@example.org]`(重要提示：请勿随意添加空格)
-    - Name: `EMAIL_SEND_LOG_LEVEL`
-    - Value: `info`或者`warning`(推荐)或者`error`
+   1. 添加配置是否启用GithubAction服务(必填)
+      - Name: `GITHUB_ACTION_ENABLED`
+      - Value: `true`或者`false`
+   1. 添加自动打卡用户配置(必填)
+      - Name: `CLOCKIN_USERS`
+      - Value: `id,phone,province,city,district,address,remarks\n140502200000000001,19899999999,山西省,太原市,小店区,山西省太原市小店区CD写字楼,张三\n140502200000000002,19899999999,山西省,临汾市,尧都区,山西省临汾市尧都区AB写字楼,李四`
+      - 备注：将`idlist_sample.csv`中所有内容原封不动复制过来，再进行修改
+   2. 添加邮件配置(可选)
+      - Name: `EMAIL_ENABLED`
+      - Value: `true`或者`false`
+      - Name: `EMAIL_SMTP_HOST`
+      - Value: `smtp.qq.com`
+      - Name: `EMAIL_SMTP_PORT`
+      - Value: `465`
+      - Name: `EMAIL_SMTP_ADDRESS`
+      - Value: `your_sender_email@example.org`
+      - Name: `EMAIL_SMTP_PASSWORD`
+      - Value: `your_sender_email_password`
+      - Name: `EMAIL_SMTP_RECEIVER_LIST`
+      - Value: `[your_reciver_email@example.org,your_reciver_email2@example.org]`(重要提示：请勿随意添加空格)
+      - Name: `EMAIL_SEND_LOG_LEVEL`
+      - Value: `info`或者`warning`(推荐)或者`error`
 
 ### 3. 启用GithubAction服务
 
