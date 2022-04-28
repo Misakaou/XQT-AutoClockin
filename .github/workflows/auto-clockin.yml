@@ -1,6 +1,7 @@
 name: 'Run Auto Clockin'
 
 on:
+  workflow_dispatch:
   schedule:
     - cron:  '0 1 * * *'
 
