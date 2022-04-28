@@ -17,10 +17,12 @@ jobs:
           python-version: 3.9
       - name: Install requirements 📦
         run: |
-          pip install -r requirements.txt
-      - name: Assign variable 📝
+          python -m pip install -r requirements.txt
+      - name: Check if secret is set 🔐
         id: secret
         run: echo '::set-output name=secret::${{secrets.ACTION_ENABLED}}'
+      - name: Copy config_sample.conf to config.conf 📝
+        run: cp config_sample.conf config.conf
       - name: Execute py script 🐍
         if: steps.secret.outputs.secret
         run: |
