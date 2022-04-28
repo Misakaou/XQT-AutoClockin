@@ -1,0 +1,32 @@
+name: 'Test Schedule'
+
+on:
+  schedule:
+    - cron:  '30 9 * * *'
+
+jobs:
+  auto-clockin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo content 🛎️
+        uses: actions/checkout@v2
+      - name: Setup python environment 🐍
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install requirements 📦
+        run: |
+          pip install -r requirements.txt
+      - name: Execute py script 🐍
+        run: |
+          python RunClockin.py
+        env:
+          GITHUB_ACTION_ENABLED: ${{ secrets.GITHUB_ACTION_ENABLED }}
+          CLOCKIN_USERS: ${{ secrets.CLOCKIN_USERS }}
+          EMAIL_ENABLED: ${{ secrets.EMAIL_ENABLED }}
+          EMAIL_SMTP_HOST: ${{ secrets.EMAIL_SMTP_HOST }}
+          EMAIL_SMTP_PORT: ${{ secrets.EMAIL_SMTP_PORT }}
+          EMAIL_SMTP_ADDRESS: ${{ secrets.EMAIL_SMTP_ADDRESS }}
+          EMAIL_SMTP_PASSWORD: ${{ secrets.EMAIL_SMTP_PASSWORD }}
+          EMAIL_SMTP_RECEIVER_LIST: ${{ secrets.EMAIL_SMTP_RECEIVER_LIST }}
+          EMAIL_SEND_LOG_LEVEL: ${{ secrets.EMAIL_SEND_LOG_LEVEL }}
