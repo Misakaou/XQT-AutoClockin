@@ -47,15 +47,15 @@
 ### 2. 配置仓库私有环境变量
 
 1. 打开仓库设置页面，点击`Secrets`，点击`Actions`
-2. 点击`New repository secret`添加私有环境变量
-   1. 添加配置是否启用GithubAction服务(必填)
+2. 点击`New repository secret`添加私有环境变量，**注意：就算不填也全部必须创建，否则将会运行失败**
+   1. 添加配置是否启用GithubAction服务
       - Name: `ACTION_ENABLED`
       - Value: `true`或者`false`
-   1. 添加自动打卡用户配置(必填)
+   2. 添加自动打卡用户配置
       - Name: `CLOCKIN_USERS`
       - Value: `id,phone,province,city,district,address,remarks\n140502200000000001,19899999999,山西省,太原市,小店区,山西省太原市小店区CD写字楼,张三\n140502200000000002,19899999999,山西省,临汾市,尧都区,山西省临汾市尧都区AB写字楼,李四`
       - 备注：将`idlist_sample.csv`中所有内容原封不动复制过来，再进行修改
-   2. 添加邮件配置(可选)
+   3. 添加邮件配置
       - Name: `EMAIL_ENABLED`
       - Value: `true`或者`false`
       - Name: `EMAIL_SMTP_HOST`
