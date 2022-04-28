@@ -1,9 +1,9 @@
-name: Run Auto Clockin
+name: 'Run Auto Clockin'
 
 on:
   schedule:
-    - cron:  '30 9 * * *'
-    - timezone: 'Asia/Shanghai'
+  - cron:  '30 9 * * *'
+  - timezone: 'Asia/Shanghai'
 
 jobs:
   auto-clockin:
