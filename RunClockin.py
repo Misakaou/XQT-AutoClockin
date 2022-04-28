@@ -14,7 +14,7 @@ class RunClockin:
         logger.info(LANGUAGE.get_message('name') + '-' + CONFIG.get_config_str('app', 'name'))
         logger.info(LANGUAGE.get_message('author') + '-' + CONFIG.get_config_str('app', 'author'))
         logger.info(LANGUAGE.get_message('version') + '-' + CONFIG.get_config_str('app', 'version'))
-        if os.environ.get('ACTION_ENABLED', 'false') == 'true':
+        if os.environ.get('ACTION_ENABLED', 'false') == 'true' or os.environ.get('ACTION_ENABLED', 'false') == 'debug':
             logger.info(LANGUAGE.get_message('ACTION_ENABLED'))
             self._github_action = True
         else:
