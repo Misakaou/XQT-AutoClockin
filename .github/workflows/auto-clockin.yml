@@ -27,7 +27,7 @@ jobs:
         if: steps.secret.outputs.secret
         run: |
           python RunClockin.py
-        continue-on-error: true
+        continue-on-error: false
         env:
           ACTION_ENABLED: ${{ secrets.ACTION_ENABLED }}
           CLOCKIN_USERS: ${{ secrets.CLOCKIN_USERS }}

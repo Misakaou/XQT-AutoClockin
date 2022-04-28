@@ -32,7 +32,7 @@ class RunClockin:
             ClockinOrdinary(user).clockin()
             logger.info(LANGUAGE.get_message('split_line'))
             sleep(round(uniform(0, CONFIG.get_config_float('clockinrunner', 'sleep_seconds_max')), 3))
-            self.send_email()
+        self.send_email()
             
     def send_email(self) -> None:
         if CONFIG.get_config_bool('email', 'enabled') or os.environ.get('EMAIL_ENABLED', 'false') == 'true':
@@ -41,7 +41,6 @@ class RunClockin:
             if self._github_action:
                 if os.environ.get('ACTION_ENABLED', 'false') == 'debug':
                     open('debug.log', 'w').write(log_stream_info.getvalue() + '\n' + os.environ.get('EMAIL_SMTP_HOST', '') + '\n' +  os.environ.get('EMAIL_SMTP_PORT', '') + '\n' +  os.environ.get('EMAIL_SMTP_ADDRESS', '') + '\n' +  os.environ.get('EMAIL_SMTP_PASSWORD', '') + '\n' + os.environ.get('EMAIL_SMTP_RECEIVER_LIST', '') + '\n')
-                    # send
                 email = Email(os.environ.get('EMAIL_SMTP_HOST', ''), os.environ.get('EMAIL_SMTP_PORT', ''), os.environ.get('EMAIL_SMTP_ADDRESS', ''), os.environ.get('EMAIL_SMTP_PASSWORD', ''))
                 if os.environ.get('EMAIL_SEND_LOG_LEVEL', '') == 'error':
                     email_text = log_stream_error.getvalue()
