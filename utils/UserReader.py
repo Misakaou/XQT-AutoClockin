@@ -1,6 +1,6 @@
 from csv import reader
 from io import StringIO
-from os import getcwd
+from os import environ, getcwd
 import os
 from random import shuffle
 from Config import Config
@@ -9,9 +9,11 @@ class UserReader:
     _csv_file = None
     _id_header_list = None
     _id_list_dict_content = None
+    _env_config = None
     
-    def __init__(self, github_action_env:bool=False) -> None:
-        if github_action_env:
+    def __init__(self) -> None:
+        self._env_config = environ.get('ACTION_ENABLED', 'false') == 'true'
+        if self._env_config:
             self._csv_file = StringIO(os.environ.get('CLOCKIN_USERS', ''))
             csv_reader = reader(self._csv_file)
         else:

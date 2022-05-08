@@ -28,16 +28,16 @@ class Email:
             raise Exception('email error: ' + str(e))
         self._multi_part = MIMEMultipart()
     
-    def send(self, email_receiver_list:list, email_subject:str, email_text:str) -> bool:
-        email_receiver_list = ', '.join(email_receiver_list)
+    def send(self, smtp_receiver_list_list:list, email_subject:str, email_text:str) -> bool:
+        smtp_receiver_list_list = ', '.join(smtp_receiver_list_list)
         self._multi_part['From'] = self._smtp_sender_email
-        self._multi_part['To'] = email_receiver_list
+        self._multi_part['To'] = smtp_receiver_list_list
         # self._multi_part['Cc'] = None
         # self._multi_part['Bcc'] = None
         self._multi_part['Subject'] = Header(email_subject, "utf-8")
         self._multi_part.attach(MIMEText(email_text, 'plain', 'utf-8'))
         try:
-            self._smtp_server.sendmail(self._smtp_sender_email, email_receiver_list, self._multi_part.as_string())
+            self._smtp_server.sendmail(self._smtp_sender_email, smtp_receiver_list_list, self._multi_part.as_string())
             return True
         except smtplib.SMTPException as e:
             return False

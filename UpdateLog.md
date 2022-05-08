@@ -1,5 +1,12 @@
 # UpdateLog
 
+## 0.1.0
+
+- rewrite utils/log.py
+- rewrite config.py
+- add retry logic
+- add send email to single user
+
 ## 0.0.4
 
 - add github action auto clockin
