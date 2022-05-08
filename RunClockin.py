@@ -55,19 +55,21 @@ class RunClockin:
             
             is_all_user_clokcin_success &= is_current_user_shixi_clockin_success and is_current_user_ordinary_clockin_success
             LOG.remove_stringio_handler(current_user_log_handler)
-            if not (is_current_user_shixi_clockin_success and is_current_user_ordinary_clockin_success):
-                self.send_email_user(user, current_user_log_string_io.getvalue())
+            if is_current_user_shixi_clockin_success and is_current_user_ordinary_clockin_success:
+                LOG.get_logger().info(LANGUAGE.get_message('email_send_to_user_cancel') + '-' + user.get('id') + '-' + user.get('remarks') + '-' + user.get('email'))
+            else:
+                if self.send_email_user(user, current_user_log_string_io.getvalue()):
+                    LOG.get_logger().info(LANGUAGE.get_message('email_send_to_user_success') + '-' + user.get('id') + '-' + user.get('remarks') + '-' + user.get('email'))
+                else:
+                    LOG.get_logger().error(LANGUAGE.get_message('email_send_to_user_fail') + '-' + user.get('id') + '-' + user.get('remarks') + '-' + user.get('email'))
             LOG.get_logger().info(LANGUAGE.get_message('split_line'))
             sleep(round(uniform(0, CONFIG.get_config_float('clockinrunner', 'sleep_seconds_max')), 3))
         self.send_email_all()
     
-    def send_email_user(self, user_json:dict, user_log: str) -> None:
+    def send_email_user(self, user_json:dict, user_log: str) -> bool:
         if CONFIG.get_config_bool('email', 'enabled'):
             email = Email(CONFIG.get_config_str('email', 'smtp_host'), CONFIG.get_config_str('email', 'smtp_port'), CONFIG.get_config_str('email', 'smtp_address'), CONFIG.get_config_str('email', 'smtp_password'))
-            if email.send([user_json.get('email')], LANGUAGE.get_message('email_title_user').format(userid=user_json.get('id')), user_log):
-                LOG.get_logger().info(LANGUAGE.get_message('email_send_to_user_success') + '-' + user_json.get('id') + '-' + user_json.get('remarks') + '-' + user_json.get('email'))
-            else:
-                LOG.get_logger().error(LANGUAGE.get_message('email_send_to_user_fail') + '-' + user_json.get('id') + '-' + user_json.get('remarks') + '-' + user_json.get('email'))
+            return email.send([user_json.get('email')], LANGUAGE.get_message('email_title_user').format(userid=user_json.get('id')), user_log)
     
     def send_email_all(self) -> None:
         if CONFIG.get_config_bool('email', 'enabled'):
