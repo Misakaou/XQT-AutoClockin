@@ -116,7 +116,7 @@
 2. [点击下载本项目代码](https://github.com/BloveDawn/XQT-AutoClockin/archive/refs/heads/main.zip)到本地并解压缩
 3. 点击函数详情页面的**上传代码**，选择**上传文件夹**，选择**选择文件夹**，随后选择您解压好的代码文件，点击**上传**，选中**我想在上传完成后直接部署函数**，点击**保存并部署**
 4. 重命名`idlist_sample.csv`为`idlist.csv`
-5. 按照`idlist.csv`格式添加用户信息，除`remark`字段为非必填外，其余字段必填，否则将导致自动打卡失败
+5. 按照`idlist.csv`格式添加用户信息，除`remark`字段为非必填外，其余字段必填，否则将导致自动打卡失败，**注意，该填的逗号不能省略，否则将读取错位**
 6. 重命名`config_sample.conf`为`config.conf`，请勿修改此文件除`email`节外的任意一节，否则将导致自动打卡失败
 
 #### 3) ALIYUNFC-安装依赖
