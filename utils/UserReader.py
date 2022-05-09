@@ -3,7 +3,7 @@ from io import StringIO
 from os import environ, getcwd
 import os
 from random import shuffle
-from Config import Config
+from utils.Config import Config
 
 class UserReader:
     _csv_file = None

@@ -1,6 +1,6 @@
 from os import getcwd
 import yaml
-from Config import Config
+from utils.Config import Config
 
 class Language:
     __lang = None

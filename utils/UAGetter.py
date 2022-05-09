@@ -1,6 +1,6 @@
 from os import getcwd
 from random import choice
-from Config import Config
+from utils.Config import Config
 
 class UAGetter:
     __ua_list_file_name = []

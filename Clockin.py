@@ -3,7 +3,7 @@ from random import randint
 from time import time
 import requests
 
-from Config import Config
+from utils.Config import Config
 from utils.Language import Language
 from utils.UAGetter import UAGetter
 from utils.AESCipher import AESCipher
