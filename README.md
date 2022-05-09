@@ -1,7 +1,17 @@
+<div align="center">
+
 # XQT-AutoClockin
+## 校企通-自动打卡
+
+[![BloveDawn - XQT-AutoClockin](https://img.shields.io/static/v1?label=BloveDawn&message=XQT-AutoClockin&color=blue&logo=github)](https://github.com/BloveDawn/XQT-AutoClockin "Go to GitHub repo")[![GitHub tag](https://img.shields.io/github/tag/BloveDawn/XQT-AutoClockin?include_prereleases=&sort=semver&color=blue)](https://github.com/BloveDawn/XQT-AutoClockin/releases/)[![GitHub release](https://img.shields.io/github/release/BloveDawn/XQT-AutoClockin?include_prereleases=&sort=semver&color=blue)](https://github.com/BloveDawn/XQT-AutoClockin/releases/)[![License](https://img.shields.io/badge/License-GPL--3.0-blue)](#license)
+[![Run Auto Clockin](https://github.com/BloveDawn/XQT-AutoClockin/workflows/Run%20Auto%20Clockin/badge.svg)](https://github.com/BloveDawn/XQT-AutoClockin/actions?query=workflow:"Run+Auto+Clockin")[![issues - XQT-AutoClockin](https://img.shields.io/github/issues/BloveDawn/XQT-AutoClockin)](https://github.com/BloveDawn/XQT-AutoClockin/issues)
+[![stars - XQT-AutoClockin](https://img.shields.io/github/stars/BloveDawn/XQT-AutoClockin?style=social)](https://github.com/BloveDawn/XQT-AutoClockin)[![forks - XQT-AutoClockin](https://img.shields.io/github/forks/BloveDawn/XQT-AutoClockin?style=social)](https://github.com/BloveDawn/XQT-AutoClockin)
+
 校企通-多用户自动打卡
 
 > 2022.04.24 -> 支持实习自动签到
+
+</div>
 
 ---
 
@@ -140,3 +150,8 @@
 - 欢迎提issue
 - 欢迎PR
 - 喜欢的话给个star喵~
+
+## 五、依赖包
+
+[![Made with Python](https://img.shields.io/badge/Python->=3.6-blue?logo=python&logoColor=white)](https://python.org "Go to Python homepage")
+[![dependency - pycryptodome](https://img.shields.io/badge/dependency-pycryptodome-blue)](https://pypi.org/project/pycryptodome)[![dependency - PyYAML](https://img.shields.io/badge/dependency-PyYAML-blue)](https://pypi.org/project/PyYAML)[![dependency - requests](https://img.shields.io/badge/dependency-requests-blue)](https://pypi.org/project/requests)
